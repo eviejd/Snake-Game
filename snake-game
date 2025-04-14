@@ -120,5 +120,19 @@ y = int((screen_height/2) - (window_height/2))
 
 window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
+# Bind arrow keys to change direction
+window.bind('<Left>', lambda event: change_direction('left'))
+window.bind('<Right>', lambda event: change_direction('right'))
+window.bind('<Up>', lambda event: change_direction('up'))
+window.bind('<Down>', lambda event: change_direction('down'))
+window.bind('<space>', toggle_pause)
+
+# Create the snake and the first food
+snake = Snake()
+food = Food()
+
+# Start the game
+next_turn(snake, food)
+
 # Keep the main window open
 window.mainloop()
