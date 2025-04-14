@@ -5,14 +5,14 @@ from tkinter import *
 import random
 
 # Game configuration constants
-GAME_WIDTH = 500  # Width of the game window
-GAME_HEIGHT = 500  # Height of the game window
-SPEED = 50  # Speed of the snake (milliseconds between movements)
-SPACE_SIZE = 50  # Size of each grid space
+GAME_WIDTH = 1190  # Width of the game window
+GAME_HEIGHT = 770  # Height of the game window
+SPEED = 80  # Speed of the snake (milliseconds between movements)
+SPACE_SIZE = 35  # Size of each grid space
 BODY_PARTS = 3  # Starting length of the snake
-SNAKE_COLOUR = "white"
-FOOD_COLOUR = "white"
-BACKGROUND_COLOUR = "black"
+SNAKE_COLOUR = "#264653"
+FOOD_COLOUR = "#e9c46a"
+BACKGROUND_COLOUR = "#2a9d8f"
 
 
 class Snake:
@@ -36,7 +36,7 @@ class Food:
     def __init__(self):
         x = random.randint(0, (GAME_WIDTH//SPACE_SIZE)-1) * SPACE_SIZE
         y = random.randint(0, (GAME_HEIGHT//SPACE_SIZE)-1) * SPACE_SIZE
-        self.coordinates = [x, y]
+        self.coordinates = (x, y)
 
         # Draw the food as a circle (oval) on the canvas
         canvas.create_oval(x, y, x + SPACE_SIZE, y +SPACE_SIZE, fill=FOOD_COLOUR, tag="food")
@@ -60,10 +60,12 @@ def next_turn(snake, food):
     elif direction == "right":
         x += SPACE_SIZE
 
+    # Allow for snake to loop from one side of the screen to the other when colliding with a wall
     x %= GAME_WIDTH
     y %= GAME_HEIGHT
+
     # Insert new head position at the front of the coordinate list
-    snake.coordinates.insert(0, (x, y))
+    snake.coordinates.insert(0, [x, y])
 
     # Draw a new square at the new head position
     square = canvas.create_rectangle(
@@ -72,10 +74,10 @@ def next_turn(snake, food):
     snake.squares.insert(0, square)
 
     # Check if snake has eaten the food
-    if x == food.coordinates[0] and y == food.coordinates[1]:
+    if (x,y) == tuple(food.coordinates):
         global score
         score += 1
-        label.config(text="Score: {}".format(score))
+        label.config(text="SCORE: {}".format(score))
 
         canvas.delete("food")  # Remove the eaten food
         food = Food()  # Create new food
@@ -132,6 +134,20 @@ def check_collisions(snake):
 
     return False
 
+paused = False
+def toggle_pause(event=None):
+    global paused
+    paused = not paused
+
+    if paused:
+        # Only create the pause text if it doesn't already exist
+        if not canvas.find_withtag('pauseText'):
+            canvas.create_text(canvas.winfo_width()/2, canvas.winfo_height()/2,
+                               font=('Helvetica', 70), text="PAUSED", fill="white", tag='pauseText')
+    else:
+        canvas.delete('pauseText')
+        next_turn(snake, food)
+
 def game_over():
     canvas.delete(ALL)
     canvas.create_text(canvas.winfo_width()/2, canvas.winfo_height()/2, font=('Helvetica', 70), text="GAME OVER", fill="#ffffff")
@@ -147,7 +163,7 @@ score = 0
 direction = 'down'  # Initial direction
 
 # Score label at the top
-label = Label(window, text="Score: {}".format(score), font=('Helvetica', 40))
+label = Label(window, text="SCORE: {}".format(score), font=('Helvetica', 40))
 label.pack()
 
 # Create the canvas where the game happens
