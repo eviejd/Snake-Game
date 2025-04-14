@@ -1,1 +1,34 @@
-# A version of the traditional game 'Snake' by Evie Durdin
+# A version of the traditional game 'Snake' 
+
+# Import everything from tkinter for GUI creation
+from tkinter import *
+
+import random
+
+# Game configuration constants
+GAME_WIDTH = 500  # Width of the game window
+GAME_HEIGHT = 500  # Height of the game window
+SPEED = 50  # Speed of the snake (milliseconds between movements)
+SPACE_SIZE = 50  # Size of each grid space
+BODY_PARTS = 3  # Starting length of the snake
+SNAKE_COLOUR = "#white"
+FOOD_COLOUR = "white"
+BACKGROUND_COLOUR = "black"
+
+class Snake:
+  pass
+
+class Food:
+  pass
+
+def next_turn():
+  pass
+
+def change_direction():
+  pass
+
+def check_collisions():
+  pass
+
+def game_over():
+  pass
