@@ -5,7 +5,7 @@ The snake moves around, eats food, and gets longer. If you crash into yourself, 
 You can pause the game, and the snake wraps around the edges of the screen instead of hitting a wall.
 
 ### Gameplay Screenshot
-<img src="gameplay.jpeg" alt="Gameplay Screenshot" width="400"/>
+<img src="gameplay.jpg" alt="Gameplay Screenshot" width="600"/>
 
 ### Features
 - Snake grows when it eats food
