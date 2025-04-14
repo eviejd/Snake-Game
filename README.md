@@ -4,6 +4,9 @@ This is a simple version of the classic Snake game that I built using Python and
 The snake moves around, eats food, and gets longer. If you crash into yourself, it’s game over. 
 You can pause the game, and the snake wraps around the edges of the screen instead of hitting a wall.
 
+### Gameplay Screenshot
+<img src="gameplay.jpeg" alt="Gameplay Screenshot" width="400"/>
+
 ### Features
 - Snake grows when it eats food
 - Score goes up each time you eat
